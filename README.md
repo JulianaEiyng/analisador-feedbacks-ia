@@ -286,10 +286,10 @@ da publicação.
 
 O modelo deste projeto ocupa aproximadamente **1,36 GB no cache local apenas
 com seus arquivos baixados**, medição feita no computador do desenvolvedor.
-Isso não é uma medição de RAM em produção. Como o Community Cloud tem limites
-de recursos não garantidos para este projeto, é necessário publicar em um
-ambiente de teste e observar o carregamento inicial antes de oferecer o link a
-recrutadores. O aplicativo pode ter cold start e suspensão por inatividade
+Em uma medição separada, o processo filho que carregou o modelo atingiu
+aproximadamente **1,31 GB de memória privada** local. Isso não garante que o
+Community Cloud tenha os mesmos limites ou o mesmo comportamento. O aplicativo
+pode ter cold start, suspensão por inatividade ou falha por limite de memória
 conforme as condições vigentes do serviço. Não foi contratado serviço pago e
 nenhum custo foi gerado.
 
@@ -299,7 +299,34 @@ Referências consultadas:
 - [Documentação do Streamlit Community Cloud](https://docs.streamlit.io/deploy/streamlit-community-cloud)
 - [Página de status do Streamlit](https://www.streamlitstatus.com/)
 
-O endereço público ainda não foi criado nem testado. Uma publicação só será
-considerada concluída depois de confirmar o repositório de destino, fazer o
-deploy, abrir o link em janela anônima e testar comentários novos e a largura
-de celular.
+### Resultado do deploy público
+
+Aplicação publicada no Streamlit Community Cloud:
+[juliana-feedbacks-ia.streamlit.app](https://juliana-feedbacks-ia.streamlit.app/).
+
+Em 28/10/2026, o endereço abriu sem solicitar login. O carregamento inicial
+renderizou a interface e a seção **Sobre a IA** mostrou o modelo, a revisão
+fixada, a avaliação exploratória e a ausência de licença declarada.
+
+Foi feita uma análise pública com comentários novos, diferentes dos exemplos:
+
+- `O entregador esqueceu metade do pedido.`
+- `A embalagem veio rasgada e a comida derramou.`
+
+O resultado exibido foi **0 positivos, 0 neutros e 2 negativos**, coerente com
+as chamadas diretas locais já registradas. A tabela mostrou os dois comentários
+e as pontuações de 64,00% e 67,95%. Isso verifica o fluxo hospedado e o
+carregamento do modelo, mas não constitui uma nova avaliação de acurácia.
+
+Também foi feita uma inspeção visual automatizada em larguras de 1440 px,
+1024 px e 390 px. Nessas três larguras, a largura do documento permaneceu
+igual à largura da viewport, sem rolagem horizontal. Em 390 px, os painéis e
+indicadores ficaram empilhados em uma coluna. A revisão visual foi feita por
+capturas de tela, não por teste em um telefone físico.
+
+O navegador registrou respostas 404/403 para recursos auxiliares e avisos
+relacionados ao embed de status, mas a aplicação continuou renderizando,
+aceitou entrada e concluiu a inferência. Esses avisos não foram tratados como
+falha da análise. Limites atuais de memória, suspensão por inatividade e
+eventuais mudanças do serviço devem continuar sendo conferidos no painel da
+conta e na documentação oficial antes de divulgar o link.
