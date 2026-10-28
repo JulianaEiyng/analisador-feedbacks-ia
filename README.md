@@ -1,11 +1,12 @@
 # Analisador de sentimentos de feedbacks
 
-Projeto pessoal para estudo de Engenharia de Software com IA. A aplicação
-classifica feedbacks curtos de delivery escritos em português como **positivo**,
-**neutro** ou **negativo**.
+Projeto pessoal de estudo que integra um Transformer pré-treinado para
+classificar feedbacks curtos de delivery em português como **positivo**,
+**neutro** ou **negativo**. Também contém uma experiência separada de
+treinamento de um classificador tradicional com TF-IDF e regressão logística.
 
 > Este projeto não tem vínculo oficial com o iFood. Eu integrei um modelo
-> pré-treinado; não treinei uma IA.
+> pré-treinado; não treinei nem fiz fine-tuning do Transformer.
 
 ## Objetivo
 
@@ -35,14 +36,18 @@ O model card informa que ele é uma versão ajustada de
 `bert-base-multilingual-cased` usando o dataset multilíngue de sentimentos da
 CardiffNLP, incluindo português. A ficha consultada reporta 61,26% de acurácia
 no teste desse dataset. A licença não aparece declarada na ficha/API do modelo;
-por isso, ela não é presumida neste projeto e deve ser confirmada antes de uma
-redistribuição.
+por isso, nenhuma licença é atribuída a ele neste projeto.
 
 A aplicação usa a revisão `605a6e533ff59d296978653dd34c556e9c9b1671` do modelo,
-registrada em [`sentiment.py`](./sentiment.py). A licença não está declarada na
-ficha/API desse modelo; por isso, nenhuma licença é atribuída a ele.
+registrada em [`sentiment.py`](./sentiment.py).
 
-Na execução local, o modelo roda no computador do desenvolvedor. Em uma
+Não há treinamento durante o uso da aplicação: o Transformer é carregado,
+mantido em cache e usado somente para inferência. O treinamento tradicional
+com TF-IDF e regressão logística foi executado separadamente no script
+[`train_compare.py`](./train_compare.py), não altera o modelo da aplicação e
+não é fine-tuning do Transformer.
+
+Na execução local, o modelo roda no computador do desenvolvedor. Na
 hospedagem pública, a inferência continua rodando no servidor da aplicação:
 os comentários enviados pelo navegador chegam ao servidor para serem
 processados. Este código não implementa banco de dados nem registro próprio de
@@ -151,7 +156,7 @@ avaliação independente.
 
 Foi implementada uma experiência separada em
 [`train_compare.py`](./train_compare.py). Ela não altera o modelo da aplicação
-e não é fine-tuning do Transformer: é o treinamento de um classificador
+e não é fine-tuning do Transformer. É o treinamento de um classificador
 tradicional de aprendizado de máquina com `TfidfVectorizer` e
 `LogisticRegression` dentro de um `Pipeline` do scikit-learn.
 
@@ -219,9 +224,11 @@ As matrizes de confusão completas estão em
 Neste conjunto exploratório, o classificador tradicional obteve resultado
 melhor, mas isso não prova que ele seja melhor para delivery: o domínio é
 diferente, os rótulos foram aproximados a partir de estrelas e a amostra é
-limitada. Por isso, o Transformer não foi substituído na aplicação. O modelo
-tradicional também depende de dados rotulados para ser treinado, enquanto o
-Transformer já está pronto para inferência.
+limitada. A escolha do Transformer na aplicação também depende de uma
+avaliação específica e representativa de feedbacks de delivery, que ainda não
+foi realizada. Por isso, o Transformer não foi substituído. O classificador
+tradicional depende de dados rotulados para ser treinado; o Transformer usado
+na aplicação é pré-treinado e apenas executa inferência durante o uso.
 
 ## Comandos de desenvolvimento
 
@@ -245,9 +252,10 @@ avaliar o mesmo teste):
 ```
 
 Os testes leves usam um classificador simulado para verificar validações e o
-mapeamento da integração, sem inferência real. `evaluate.py`, a interface e
-`train_compare.py` executam inferência real; o primeiro uso pode exigir
-internet e o Transformer consome mais memória e tempo.
+mapeamento da integração, sem inferência real do Transformer. `evaluate.py`, a
+interface e a parte do Transformer em `train_compare.py` executam inferência
+real; o primeiro uso pode exigir internet e o Transformer consome mais memória
+e tempo.
 
 Foi configurado o workflow
 [`testes.yml`](./.github/workflows/testes.yml) para executar os testes leves
@@ -262,8 +270,8 @@ inferência real passou.
   incorretamente, como evidenciado pelos resultados acima.
 - O modelo é executado em CPU e pode levar alguns segundos na primeira análise.
 - O modelo é mantido em cache pelo Streamlit durante a execução da aplicação.
-- Não há login, banco de dados, API paga, treinamento, regras de palavras-chave
-  ou geração automática de respostas.
+- Não há login, banco de dados, API paga, treinamento durante o uso da
+  aplicação, regras de palavras-chave ou geração automática de respostas.
 - O primeiro uso depende de internet para baixar o modelo.
 - A versão local e a versão hospedada têm fluxos de dados diferentes: na
   hospedagem, os comentários são enviados ao servidor para inferência.
@@ -275,14 +283,13 @@ virtual, o cache do Hugging Face ou os pesos do modelo. O arquivo
 `.gitignore` exclui esses itens. O modelo será baixado pela aplicação no
 primeiro uso do servidor, conforme as dependências instaladas.
 
-Uma opção gratuita compatível a ser avaliada é o **Streamlit Community Cloud**:
-ele conecta a um repositório GitHub e executa o `streamlit run app.py` no
-servidor, portanto a inferência não deve ser desativada. A documentação oficial
-informa que o serviço usa Debian, instala as dependências a partir do
-`requirements.txt` e pode impor limites de recursos e atualizações. Também
-informa que os aplicativos podem ficar indisponíveis durante manutenção ou
-quando excedem limites; a página oficial de status deve ser consultada no dia
-da publicação.
+O projeto está publicado no **Streamlit Community Cloud**, que conecta ao
+repositório GitHub e executa o `streamlit run app.py` no servidor. A inferência
+não foi desativada. A documentação oficial informa que o serviço usa Debian,
+instala as dependências a partir do `requirements.txt` e pode impor limites de
+recursos e atualizações. Aplicativos podem ficar indisponíveis durante
+manutenção ou quando excedem limites; a página oficial de status deve ser
+consultada quando necessário.
 
 O modelo deste projeto ocupa aproximadamente **1,36 GB no cache local apenas
 com seus arquivos baixados**, medição feita no computador do desenvolvedor.
@@ -304,9 +311,10 @@ Referências consultadas:
 Aplicação publicada no Streamlit Community Cloud:
 [juliana-feedbacks-ia.streamlit.app](https://juliana-feedbacks-ia.streamlit.app/).
 
-Em 28/10/2026, o endereço abriu sem solicitar login. O carregamento inicial
-renderizou a interface e a seção **Sobre a IA** mostrou o modelo, a revisão
-fixada, a avaliação exploratória e a ausência de licença declarada.
+Em 28/10/2026, o endereço abriu no navegador automatizado sem solicitar login.
+O carregamento inicial renderizou a interface e a seção **Sobre a IA** mostrou
+o modelo, a revisão fixada, a avaliação exploratória e a ausência de licença
+declarada.
 
 Foi feita uma análise pública com comentários novos, diferentes dos exemplos:
 
@@ -327,6 +335,10 @@ capturas de tela, não por teste em um telefone físico.
 O navegador registrou respostas 404/403 para recursos auxiliares e avisos
 relacionados ao embed de status, mas a aplicação continuou renderizando,
 aceitou entrada e concluiu a inferência. Esses avisos não foram tratados como
-falha da análise. Limites atuais de memória, suspensão por inatividade e
-eventuais mudanças do serviço devem continuar sendo conferidos no painel da
-conta e na documentação oficial antes de divulgar o link.
+falha da análise.
+
+Ainda estão pendentes a confirmação manual em uma janela anônima, o teste em
+um telefone físico e a verificação contínua dos limites atuais de memória e
+suspensão por inatividade do serviço. Essas pendências não invalidam os testes
+automatizados e hospedados descritos acima, mas devem ser consideradas antes de
+apresentar o endereço como uma garantia de disponibilidade.
