@@ -9,6 +9,7 @@ from sentiment import (
     MAX_COMMENT_LENGTH,
     MAX_COMMENTS,
     MODEL_NAME,
+    MODEL_REVISION,
     analyze_comments,
     load_classifier,
     validate_comments,
@@ -223,6 +224,7 @@ def main() -> None:
     with st.expander("Sobre a IA"):
         st.write(
             f"Modelo de análise de sentimentos: `{MODEL_NAME}`. "
+            f"Revisão: `{MODEL_REVISION[:12]}`. "
             "Ele é executado com Transformers e PyTorch. Na primeira execução, "
             "os arquivos do modelo são baixados do Hugging Face."
         )

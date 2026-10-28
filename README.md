@@ -21,6 +21,7 @@ modelo e a contagem por categoria.
 - Hugging Face Transformers
 - PyTorch (execução em CPU)
 - pandas
+- scikit-learn (comparador tradicional)
 - Modelo `cardiffnlp/mbert-base-tweet-sentiment-pt`
 
 O modelo tem três rótulos de saída observados na configuração:
@@ -36,6 +37,10 @@ CardiffNLP, incluindo português. A ficha consultada reporta 61,26% de acurácia
 no teste desse dataset. A licença não aparece declarada na ficha/API do modelo;
 por isso, ela não é presumida neste projeto e deve ser confirmada antes de uma
 redistribuição.
+
+A aplicação usa a revisão `605a6e533ff59d296978653dd34c556e9c9b1671` do modelo,
+registrada em [`sentiment.py`](./sentiment.py). A licença não está declarada na
+ficha/API desse modelo; por isso, nenhuma licença é atribuída a ele.
 
 Na execução local, o modelo roda no computador do desenvolvedor. Em uma
 hospedagem pública, a inferência continua rodando no servidor da aplicação:
@@ -141,6 +146,113 @@ uma confiança estimada pelo modelo, não uma garantia de acerto.
 Os cinco comentários usados no diagnóstico inicial e os quatro exemplos
 carregados pela interface são demonstrações/diagnóstico, não uma segunda
 avaliação independente.
+
+## Comparação com classificador tradicional
+
+Foi implementada uma experiência separada em
+[`train_compare.py`](./train_compare.py). Ela não altera o modelo da aplicação
+e não é fine-tuning do Transformer: é o treinamento de um classificador
+tradicional de aprendizado de máquina com `TfidfVectorizer` e
+`LogisticRegression` dentro de um `Pipeline` do scikit-learn.
+
+### Dados e preparação
+
+Foi usada uma amostra estratificada de 6.000 avaliações do
+[B2W-Reviews01](https://github.com/americanas-tech/b2w-reviews01), corpus de
+avaliações de produtos em português brasileiro. O README da fonte original
+informa a licença **CC BY-NC-SA 4.0**. Isso permite atribuição e adaptação para
+uso não comercial, com compartilhamento pela mesma licença; não é uma
+autorização para uso comercial. A atribuição usada é:
+
+> Real, Livy; Oshiro, Marcio; Mafra, Alexandre. *B2W-reviews01: an open product
+> reviews corpus*. STIL, 2019.
+
+A fonte também orienta dar crédito à B2W Digital. Referência da licença:
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+As notas foram convertidas apenas para esta experiência:
+
+- 1–2 estrelas: Negativo
+- 3 estrelas: Neutro
+- 4–5 estrelas: Positivo
+
+Essa conversão é uma aproximação: avaliações de produtos pertencem a um
+domínio diferente de feedbacks de delivery, e uma nota não representa
+perfeitamente o sentimento textual. Antes da divisão, foram removidas linhas
+sem texto e duplicatas após normalização de espaços e caixa. A amostra ficou
+balanceada, com 2.000 textos por classe. A divisão estratificada foi feita
+antes de ajustar o TF-IDF e o classificador:
+
+- Treino: 4.800 textos
+- Teste: 1.200 textos
+- `test_size=0.2`
+- `random_state=42`
+
+O conjunto de teste é diferente dos 30 exemplos fictícios usados na avaliação
+anterior. Os exemplos anteriores não foram usados como única evidência de
+generalização.
+
+### Resultados reais
+
+Comando executado:
+
+```powershell
+.\.venv\Scripts\python.exe train_compare.py
+```
+
+Resultados no mesmo conjunto de teste B2W:
+
+| Modelo | Acurácia | Macro-F1 |
+|---|---:|---:|
+| TF-IDF + regressão logística | 73,50% | 73,27% |
+| Transformer atual | 55,42% | 53,66% |
+
+As matrizes de confusão completas estão em
+[`resultados_comparacao.json`](./resultados_comparacao.json), na ordem
+`Negativo, Neutro, Positivo`:
+
+- TF-IDF + regressão logística:
+  `[[344, 51, 5], [67, 244, 89], [25, 81, 294]]`
+- Transformer atual:
+  `[[318, 75, 7], [189, 112, 99], [97, 68, 235]]`
+
+Neste conjunto exploratório, o classificador tradicional obteve resultado
+melhor, mas isso não prova que ele seja melhor para delivery: o domínio é
+diferente, os rótulos foram aproximados a partir de estrelas e a amostra é
+limitada. Por isso, o Transformer não foi substituído na aplicação. O modelo
+tradicional também depende de dados rotulados para ser treinado, enquanto o
+Transformer já está pronto para inferência.
+
+## Comandos de desenvolvimento
+
+Testes leves, sem baixar o modelo grande:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q tests
+```
+
+Avaliação dos 30 exemplos fictícios do projeto:
+
+```powershell
+.\.venv\Scripts\python.exe evaluate.py
+```
+
+Treino e comparação no B2W (baixa o CSV da fonte e carrega o Transformer para
+avaliar o mesmo teste):
+
+```powershell
+.\.venv\Scripts\python.exe train_compare.py
+```
+
+Os testes leves usam um classificador simulado para verificar validações e o
+mapeamento da integração, sem inferência real. `evaluate.py`, a interface e
+`train_compare.py` executam inferência real; o primeiro uso pode exigir
+internet e o Transformer consome mais memória e tempo.
+
+Foi configurado o workflow
+[`testes.yml`](./.github/workflows/testes.yml) para executar os testes leves
+em pushes e pull requests. Ele não baixa os pesos grandes nem afirma que a
+inferência real passou.
 
 ## Limitações
 

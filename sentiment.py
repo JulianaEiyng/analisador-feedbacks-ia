@@ -7,6 +7,7 @@ from transformers import pipeline
 
 
 MODEL_NAME = "cardiffnlp/mbert-base-tweet-sentiment-pt"
+MODEL_REVISION = "605a6e533ff59d296978653dd34c556e9c9b1671"
 MAX_COMMENTS = 20
 MAX_COMMENT_LENGTH = 300
 
@@ -35,6 +36,7 @@ def load_classifier() -> Any:
         "sentiment-analysis",
         model=MODEL_NAME,
         tokenizer=MODEL_NAME,
+        revision=MODEL_REVISION,
         device=-1,
     )
 

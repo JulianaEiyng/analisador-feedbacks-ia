@@ -1,0 +1,80 @@
+{
+  "fonte": "B2W-Reviews01",
+  "url_fonte": "https://raw.githubusercontent.com/americanas-tech/b2w-reviews01/4639429ec698d7821fc99a0bc665fa213d9fcd5a/B2W-Reviews01.csv",
+  "licenca": "CC BY-NC-SA 4.0",
+  "atribuicao": "Real, Livy; Oshiro, Marcio; Mafra, Alexandre. B2W-reviews01: an open product reviews corpus. STIL, 2019.",
+  "observacao_dominio": "São avaliações de produtos, não feedbacks de delivery. As estrelas são uma aproximação dos rótulos de sentimento.",
+  "amostra_total": 6000,
+  "treino": 4800,
+  "teste": 1200,
+  "distribuicao_amostra": {
+    "Negativo": 2000,
+    "Neutro": 2000,
+    "Positivo": 2000
+  },
+  "test_size": 0.2,
+  "random_state": 42,
+  "mapeamento_estrelas": {
+    "1-2": "Negativo",
+    "3": "Neutro",
+    "4-5": "Positivo"
+  },
+  "modelos": {
+    "tfidf_regressao_logistica": {
+      "acuracia": 0.735,
+      "f1_macro": 0.7327,
+      "matriz_confusao": [
+        [
+          344,
+          51,
+          5
+        ],
+        [
+          67,
+          244,
+          89
+        ],
+        [
+          25,
+          81,
+          294
+        ]
+      ],
+      "ordem_matriz_confusao": [
+        "Negativo",
+        "Neutro",
+        "Positivo"
+      ]
+    },
+    "transformer_atual": {
+      "acuracia": 0.5542,
+      "f1_macro": 0.5366,
+      "matriz_confusao": [
+        [
+          318,
+          75,
+          7
+        ],
+        [
+          189,
+          112,
+          99
+        ],
+        [
+          97,
+          68,
+          235
+        ]
+      ],
+      "ordem_matriz_confusao": [
+        "Negativo",
+        "Neutro",
+        "Positivo"
+      ]
+    }
+  },
+  "transformer": {
+    "nome": "cardiffnlp/mbert-base-tweet-sentiment-pt",
+    "revisao": "605a6e533ff59d296978653dd34c556e9c9b1671"
+  }
+}
