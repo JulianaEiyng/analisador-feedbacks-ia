@@ -1,0 +1,213 @@
+:root {
+    --background: #09090b;
+    --surface: #141418;
+    --surface-raised: #1b1b21;
+    --border: #2b2b34;
+    --text: #f7f7f8;
+    --muted: #c4c4cc;
+    --accent: #ff003d;
+    --accent-soft: #ff3d68;
+    --positive: #56d364;
+    --neutral: #f2c94c;
+    --negative: #ff4d6d;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .stButton > button,
+    textarea {
+        transition: border-color 160ms ease, box-shadow 160ms ease,
+            transform 160ms ease;
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-1px);
+    }
+}
+
+html,
+body,
+[data-testid="stAppViewContainer"],
+[data-testid="stHeader"] {
+    background: var(--background);
+    color: var(--text);
+}
+
+[data-testid="stAppViewContainer"] .main .block-container {
+    max-width: 1240px;
+    overflow-x: hidden;
+    padding: 0.7rem 2rem 2rem;
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+.app-header {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+    padding-bottom: 0.75rem;
+}
+
+.brand {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.brand span,
+.hero-kicker {
+    color: var(--accent);
+}
+
+.eyebrow,
+.hero-kicker,
+.app-footer,
+[data-testid="stCaptionContainer"] {
+    color: var(--muted);
+}
+
+.eyebrow,
+.hero-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.hero {
+    background: linear-gradient(115deg, var(--background) 20%, #28000f 100%);
+    border: 1px solid #35111d;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    padding: 2.1rem 2.6rem;
+}
+
+.hero h1 {
+    color: var(--text);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+    margin: 0.55rem 0 0.75rem;
+    max-width: 760px;
+}
+
+.hero p {
+    color: #d2d2d8;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.9rem;
+    padding: 1.35rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] h3,
+.summary-panel h3,
+.main h3 {
+    color: var(--text);
+    letter-spacing: -0.02em;
+}
+
+textarea,
+[data-baseweb="textarea"] > div {
+    background: var(--surface-raised) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+
+textarea:focus,
+[data-baseweb="textarea"]:focus-within > div {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 1px var(--accent) !important;
+}
+
+.stButton > button {
+    border: 1px solid var(--border);
+    border-radius: 0.55rem;
+    font-weight: 700;
+    min-height: 2.7rem;
+}
+
+.stButton > button[kind="primary"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+}
+
+[data-testid="stMetric"] {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    padding: 0.8rem;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--muted);
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--text);
+}
+
+[data-testid="stDataFrame"] {
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+[data-testid="stExpander"] {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    margin-top: 2rem;
+}
+
+.app-footer {
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    margin-top: 2rem;
+    padding: 1.2rem 0 0.5rem;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    [data-testid="stAppViewContainer"] .main .block-container {
+        padding: 0.55rem 0.8rem 1.5rem;
+    }
+
+    .app-header {
+        margin-bottom: 2rem;
+    }
+
+    .hero {
+        padding: 1.6rem 1.1rem;
+    }
+
+    .hero h1 {
+        font-size: 2.65rem;
+    }
+
+    .app-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .stButton > button {
+        min-height: 3rem;
+    }
+}

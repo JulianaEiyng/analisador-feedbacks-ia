@@ -1,0 +1,218 @@
+{
+  "total": 30,
+  "acertos": 19,
+  "erros": 11,
+  "acuracia": 0.6333,
+  "resultados": [
+    {
+      "comentário": "A comida chegou quente e deliciosa!",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "90.02%",
+      "acertou": true
+    },
+    {
+      "comentário": "O entregador foi muito educado.",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "86.01%",
+      "acertou": true
+    },
+    {
+      "comentário": "Adorei o sabor e a embalagem.",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "82.74%",
+      "acertou": true
+    },
+    {
+      "comentário": "Pedido perfeito, vou pedir novamente.",
+      "esperado": "Positivo",
+      "previsto": "Negativo",
+      "pontuação": "79.17%",
+      "acertou": false
+    },
+    {
+      "comentário": "A entrega foi rápida e tudo veio certo.",
+      "esperado": "Positivo",
+      "previsto": "Neutro",
+      "pontuação": "42.31%",
+      "acertou": false
+    },
+    {
+      "comentário": "Excelente experiência do começo ao fim.",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "89.80%",
+      "acertou": true
+    },
+    {
+      "comentário": "A sobremesa estava maravilhosa.",
+      "esperado": "Positivo",
+      "previsto": "Negativo",
+      "pontuação": "46.09%",
+      "acertou": false
+    },
+    {
+      "comentário": "Muito bom, chegou antes do prazo.",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "53.30%",
+      "acertou": true
+    },
+    {
+      "comentário": "Gostei bastante do atendimento.",
+      "esperado": "Positivo",
+      "previsto": "Negativo",
+      "pontuação": "53.50%",
+      "acertou": false
+    },
+    {
+      "comentário": "A comida estava saborosa e bem feita.",
+      "esperado": "Positivo",
+      "previsto": "Positivo",
+      "pontuação": "60.90%",
+      "acertou": true
+    },
+    {
+      "comentário": "O pedido chegou no horário combinado.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "50.43%",
+      "acertou": true
+    },
+    {
+      "comentário": "Recebi exatamente o que pedi.",
+      "esperado": "Neutro",
+      "previsto": "Negativo",
+      "pontuação": "85.21%",
+      "acertou": false
+    },
+    {
+      "comentário": "O restaurante fica perto da minha casa.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "43.76%",
+      "acertou": true
+    },
+    {
+      "comentário": "O pedido foi feito pelo aplicativo.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "80.43%",
+      "acertou": true
+    },
+    {
+      "comentário": "A embalagem era de papel.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "71.86%",
+      "acertou": true
+    },
+    {
+      "comentário": "A entrega aconteceu às oito da noite.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "79.62%",
+      "acertou": true
+    },
+    {
+      "comentário": "Vieram dois pratos e uma bebida.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "84.34%",
+      "acertou": true
+    },
+    {
+      "comentário": "O entregador deixou o pedido na portaria.",
+      "esperado": "Neutro",
+      "previsto": "Negativo",
+      "pontuação": "76.35%",
+      "acertou": false
+    },
+    {
+      "comentário": "A porção tinha o tamanho informado.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "84.08%",
+      "acertou": true
+    },
+    {
+      "comentário": "O cardápio informa as opções disponíveis.",
+      "esperado": "Neutro",
+      "previsto": "Neutro",
+      "pontuação": "75.45%",
+      "acertou": true
+    },
+    {
+      "comentário": "A entrega atrasou muito e a comida veio fria.",
+      "esperado": "Negativo",
+      "previsto": "Negativo",
+      "pontuação": "63.15%",
+      "acertou": true
+    },
+    {
+      "comentário": "O pedido veio errado e faltaram itens.",
+      "esperado": "Negativo",
+      "previsto": "Negativo",
+      "pontuação": "85.80%",
+      "acertou": true
+    },
+    {
+      "comentário": "A comida estava horrível e sem sabor.",
+      "esperado": "Negativo",
+      "previsto": "Neutro",
+      "pontuação": "49.99%",
+      "acertou": false
+    },
+    {
+      "comentário": "Não gostei do atendimento.",
+      "esperado": "Negativo",
+      "previsto": "Negativo",
+      "pontuação": "79.87%",
+      "acertou": true
+    },
+    {
+      "comentário": "O entregador foi grosseiro.",
+      "esperado": "Negativo",
+      "previsto": "Neutro",
+      "pontuação": "65.34%",
+      "acertou": false
+    },
+    {
+      "comentário": "A embalagem chegou amassada e vazando.",
+      "esperado": "Negativo",
+      "previsto": "Neutro",
+      "pontuação": "60.32%",
+      "acertou": false
+    },
+    {
+      "comentário": "Esperei uma hora além do prazo.",
+      "esperado": "Negativo",
+      "previsto": "Neutro",
+      "pontuação": "49.01%",
+      "acertou": false
+    },
+    {
+      "comentário": "A pizza estava boa, mas a entrega foi péssima.",
+      "esperado": "Negativo",
+      "previsto": "Negativo",
+      "pontuação": "61.05%",
+      "acertou": true
+    },
+    {
+      "comentário": "Não recomendo, a comida chegou fria.",
+      "esperado": "Negativo",
+      "previsto": "Negativo",
+      "pontuação": "72.67%",
+      "acertou": true
+    },
+    {
+      "comentário": "O preço foi alto e a porção pequena.",
+      "esperado": "Negativo",
+      "previsto": "Neutro",
+      "pontuação": "77.75%",
+      "acertou": false
+    }
+  ]
+}
