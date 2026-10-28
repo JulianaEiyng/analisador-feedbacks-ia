@@ -337,8 +337,9 @@ relacionados ao embed de status, mas a aplicação continuou renderizando,
 aceitou entrada e concluiu a inferência. Esses avisos não foram tratados como
 falha da análise.
 
-Ainda estão pendentes a confirmação manual em uma janela anônima, o teste em
-um telefone físico e a verificação contínua dos limites atuais de memória e
-suspensão por inatividade do serviço. Essas pendências não invalidam os testes
-automatizados e hospedados descritos acima, mas devem ser consideradas antes de
-apresentar o endereço como uma garantia de disponibilidade.
+Em 28/10/2026, a proprietária do projeto também confirmou manualmente que a
+aplicação funcionou corretamente em um celular e em uma janela anônima no
+notebook. A verificação contínua dos limites atuais de memória e suspensão por
+inatividade do serviço permanece como limitação operacional da hospedagem.
+Essas condições devem continuar sendo consideradas antes de apresentar o
+endereço como uma garantia de disponibilidade.
